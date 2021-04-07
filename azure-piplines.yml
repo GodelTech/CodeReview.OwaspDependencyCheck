@@ -6,7 +6,6 @@ resources:
 
 variables:
   repository: 'godeltech/owasp-dependency-checker'
-  foldername: 'CodeReview.OwaspDependencyCheck'
 
 stages:
 - stage: Build
@@ -19,17 +18,15 @@ stages:
             displayName: Setup GitVersion
             inputs:
              versionSpec: '5.x'
-          - script: pwd && ls
           - task: gitversion/execute@0
             displayName: Execute GitVersion
           - task: Docker@2
             displayName: Build and Push an image
             inputs:
-              buildContext: './src/'
               containerRegistry: 'docker-hub'
               repository: $(repository)
               command: 'buildAndPush'
-              Dockerfile: './src/$(foldername)/Dockerfile'
+              Dockerfile: './src/Dockerfile'
               tags: |
                 $(Build.BuildNumber)
                 latest
