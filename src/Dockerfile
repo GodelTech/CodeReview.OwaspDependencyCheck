@@ -24,6 +24,7 @@ COPY --from=go /usr/local/go/ /usr/local/go/
 RUN apk update                                                                                       && \
     apk add --no-cache --virtual .build-deps curl tar                                                && \
     apk add --no-cache git ruby ruby-rdoc npm                                                        && \
+    gem install bundler -v 2.4.22                                                                    && \
     gem install bundle-audit                                                                         && \
     bundle audit update                                                                              && \
     mkdir /opt/yarn                                                                                  && \
