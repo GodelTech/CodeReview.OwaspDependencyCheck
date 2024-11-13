@@ -1,6 +1,6 @@
 # CodeReview.OwaspDependencyCheck
 
-NuGet: https://hub.docker.com/r/godeltech/owasp-dependency-checker
+Docker image: https://hub.docker.com/r/godeltech/owasp-dependency-checker
 
 ## Description
 
