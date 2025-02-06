@@ -3,13 +3,6 @@ trigger:
 
 pr: none
 
-schedules:
-  - cron: "0 0 * * 0"
-    displayName: Scheduled build once per week
-    branches:
-      include:
-        - main
-
 resources:
   - repo: self
 
@@ -23,12 +16,21 @@ stages:
   - job: Build
     displayName: Build
     steps:
-      - task: Docker@2
-        displayName: Build and Push an image
-        inputs:
-          containerRegistry: 'docker-hub'
-          repository: $(repository)
-          command: 'buildAndPush'
-          Dockerfile: './src/Dockerfile'
-          tags: |
-            latest
+          - task: gitversion/setup@0
+            displayName: Setup GitVersion
+            inputs:
+             versionSpec: '5.x'
+
+          - task: gitversion/execute@0
+            displayName: Execute GitVersion
+
+          - task: Docker@2
+            displayName: Build and Push an image
+            inputs:
+              containerRegistry: 'docker-hub'
+              repository: $(repository)
+              command: 'buildAndPush'
+              Dockerfile: './src/Dockerfile'
+              tags: |
+                $(Build.BuildNumber)
+                latest
