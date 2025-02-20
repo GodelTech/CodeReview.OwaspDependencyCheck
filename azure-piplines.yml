@@ -22,7 +22,6 @@ stages:
   displayName: Build image
   jobs:
   - job: Build
-  
     displayName: Build
     steps:
           - task: gitversion/setup@0
