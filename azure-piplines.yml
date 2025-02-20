@@ -3,11 +3,19 @@ trigger:
 
 pr: none
 
+schedules:
+  - cron: "0 0 * * 0" # Trigger update vulnerabilities cache every Sunday at midnight
+    displayName: Weekly build
+    branches:
+      include:
+        - main
+
 resources:
   - repo: self
 
 variables:
   repository: 'godeltech/owasp-dependency-checker'
+  currentDate: $[format('{0:yyyyMMdd}', pipeline.startTime)]
 
 stages:
 - stage: Build
@@ -32,5 +40,5 @@ stages:
               command: 'buildAndPush'
               Dockerfile: './src/Dockerfile'
               tags: |
-                $(Build.BuildNumber)
+                $(Build.BuildNumber).$(currentDate)
                 latest
