@@ -33,4 +33,5 @@ stages:
               Dockerfile: './src/Dockerfile'
               tags: |
                 $(Build.BuildNumber)
+                $(Build.BuildId)_$(Build.SourceVersion)_$(Build.QueuedTime)
                 latest
