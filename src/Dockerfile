@@ -4,15 +4,15 @@ FROM azul/zulu-openjdk-alpine:14 AS jlink
 
 RUN "$JAVA_HOME/bin/jlink" --compress=2 --module-path /opt/java/openjdk/jmods --add-modules java.base,java.compiler,java.datatransfer,jdk.crypto.ec,java.desktop,java.instrument,java.logging,java.management,java.naming,java.rmi,java.scripting,java.security.sasl,java.sql,java.transaction.xa,java.xml,jdk.unsupported --output /jlinked
 
-FROM mcr.microsoft.com/dotnet/runtime:9.0-alpine
+FROM mcr.microsoft.com/dotnet/runtime:8.0-alpine
 
 ARG VERSION
 ARG POSTGRES_DRIVER_VERSION=42.2.19
 ARG MYSQL_DRIVER_VERSION=8.0.23
 ARG UID=1000
 ARG GID=1000
-ARG version_url=https://jeremylong.github.io/DependencyCheck/current.txt
-ARG download_url=https://github.com/jeremylong/DependencyCheck/releases/download
+ARG version_url=https://dependency-check.github.io/DependencyCheck/current.txt
+ARG download_url=https://github.com/dependency-check/DependencyCheck/releases/download
 
 ENV user=dependencycheck
 ENV JAVA_HOME=/opt/jdk
